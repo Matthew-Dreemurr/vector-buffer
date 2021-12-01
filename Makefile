@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 16:24:11 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/01 16:51:52 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,10 @@ OBJS	= $(addprefix $(OBJ_DIR), $(OBJ))
 VPATH	= $(SRC_DIR) $(OBJ_DIR) $(shell find $(SRC_DIR) -type d)
 
 all: $(NAME)
+
+only_obj: $(OBJ_DIR) $(OBJS)
+	@printf "\n[Compiled /w this flag $(CFLAGS)]\n"
+	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
 
 $(DEP_LIBFT):
 	@make only_obj -C ../libft
