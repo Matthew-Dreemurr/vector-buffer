@@ -6,36 +6,25 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 13:04:10 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/01 13:09:34 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # _.-=+=-._.-=+=-._[ Var ]_.-=+=-._.-=+=-._ #
 
-NAME = <exe or lib>
-
-INCLUDES = -I includes/
-DEP_LIBFT = 
 # _.-=+=-._.-=+=-._[ Source & Bin ]_.-=+=-._.-=+=-._ #
 
-all: $(NAME)
-	@printf "\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
-
-$(NAME): 
-	@ar -rcs $(NAME) 
-	@printf "\033[32;1m[== Linked OK ==]\033[32;0m\n"
+all:
+	make -C vector-buffer
 
 clean:
-	@rm -rf $(OBJS)
-	@printf "\033[31;1m[Remove *.o]\033[32;0m\n"
-	@rm -rf $(OBJ_DIR)
-	@printf "\033[31;1m[Remove $(OBJ_DIR)]\033[32;0m\n"
+	make clean -C vector-buffer
 
-fclean: clean
-	@rm -f $(NAME)
-	@printf "\033[31;1m[Remove $(NAME)]\033[32;0m\n"
+fclean:
+	make fclean -C vector-buffer
 
-re: fclean all
+re:
+	make re -C vector-buffer
 
 .PHONY: all, clean, fclean, re
 
@@ -52,6 +41,7 @@ fc: fclean
 r: re
 
 git:
+	make git -C vector-buffer
 	@git pull
 	@-git add .
 	@git commit -am "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
