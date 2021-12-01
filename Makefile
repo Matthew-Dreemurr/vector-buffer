@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 12:42:15 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/01 13:10:12 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ endif
 
 SRC_DIR = src/
 OBJ_DIR = obj_$(basename $(NAME))/
+
+
 
 SRCS = $(shell find src -type f -name "*.c")
 
@@ -90,6 +92,8 @@ r: re
 
 git:
 	@git pull
+	@git status --short
+	@while true; do read -p "Continue [y/N]" resp; if [[ $$resp =~ ^[Yy]$$ ]]; then exit 0; else exit 1; fi; done
 	@-git add .
 	@git commit -am "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
 	@-git push
