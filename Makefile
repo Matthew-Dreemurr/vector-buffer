@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 14:13:21 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/01 16:24:11 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,14 @@ CFLAGS += -g3
 endif
 
 # _.-=+=-._.-=+=-._[ Source & Bin ]_.-=+=-._.-=+=-._ #
+.PHONY: all, clean, fclean, re
 
 SRC_DIR = src/
 OBJ_DIR = obj_$(basename $(NAME))/
 
-DEP_LIBFT = ../Libft/libft.a
+HEADER = ../includes/vector.h
+
+DEP_LIBFT = ../libft/obj_libft
 
 SRCS = $(shell find src -type f -name "*.c")
 
@@ -46,12 +49,12 @@ OBJS	= $(addprefix $(OBJ_DIR), $(OBJ))
 
 VPATH	= $(SRC_DIR) $(OBJ_DIR) $(shell find $(SRC_DIR) -type d)
 
-all: $(DEP_LIBFT) $(NAME)
+all: $(NAME)
 
 $(DEP_LIBFT):
-	make -C ../Libft
+	@make only_obj -C ../libft
 
-$(OBJ_DIR)%.o: %.c
+$(OBJ_DIR)%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@if [[ $(COMP_D) = "0" ]]; then printf "\033[32;1m.\033[32;0m"; else printf "\033[32;1m$@\033[32;0m\n"; fi
 
@@ -59,14 +62,14 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 	@printf "\033[32;1m[Create $(OBJ_DIR)]\033[32;0m\n"
 
-$(NAME): $(OBJ_DIR) $(OBJS)
-	@ar -rcs $(NAME) $(OBJS) $(DEP_LIBFT)
+$(NAME): $(OBJ_DIR) $(OBJS) $(DEP_LIBFT)
+	@ar -rcs $(NAME) $(OBJS) $(shell find $(DEP_LIBFT) -type f -name "*.o")
 	@printf "\n\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
 	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
-	@printf "[Compiled /w this flag $(CFLAGS)]"
+	@printf "\n[Compiled /w this flag $(CFLAGS)]\n"
 
 clean:
-	make clean -C ../libft
+	@make clean -C ../libft
 	@rm -rf $(OBJS)
 	@printf "\033[31;1m[Remove *.o]\033[32;0m\n"
 	@rm -rf $(OBJ_DIR)
@@ -78,11 +81,11 @@ fclean: clean
 	@printf "\033[31;1m[Remove $(NAME)]\033[32;0m\n"
 
 re: fclean all
-
-.PHONY: all, clean, fclean, re
-
 # _.-=+=-._.-=+=-._[ Dev Tools ]_.-=+=-._.-=+=-._ #
-.PHONY: c, cf, r, git, h
+.PHONY: c, cf, r, git, h, test
+
+test: $(NAME)
+	$(CC) $(CFLAGS) $(NAME) test/test_main.c -o vect_test
 
 h:
 	@echo "\033[1J"

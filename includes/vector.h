@@ -6,19 +6,22 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:52:54 by mahadad           #+#    #+#             */
-/*   Updated: 2021/11/27 00:25:41 by mahadad          ###   ########.fr       */
+/*   Updated: 2021/12/01 16:27:49 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <stddef.h>
-#include "libft.h"
+# include <stddef.h>
+# include "libft.h"
 
 # define VEC_EXIT_FAILURE ((void *)0)
 # define VEC_EXIT_SUCCESS ((int)1)
 # define VEC_BUFFER_SIZE  ((unsigned long)256)
+
+/* when resize do `vec->mac + BUFF_S` or `vec->max * 2` ? */
+# define VECT_RESIZE_OP * 2
 
 /**
  * @brief s_vector struc to manage the memory of a char array.
@@ -34,7 +37,8 @@ typedef struct s_vector
 	char	*buff;
 }				t_vector;
 
-char		*vect_init(t_vector *vec, size_t size);
+char		*vect_init(t_vector *vec);
+char		*vect_init_strict(t_vector *vec, size_t size);
 char		*vect_resize(t_vector *vec, size_t size);
 char		*vect_cat(t_vector *vec, char *str);
 char		*vect_push(t_vector *vec, char c);

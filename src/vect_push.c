@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 13:31:01 by mahadad           #+#    #+#             */
-/*   Updated: 2021/11/26 23:54:16 by mahadad          ###   ########.fr       */
+/*   Updated: 2021/12/01 16:26:22 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*vect_push(t_vector *vec, char c)
 		return (VEC_EXIT_FAILURE);
 	len = 1;
 	while (vec->max < (vec->len + (len + 1)))
-		if (!vect_resize(vec, vec->max * 2))
+		if (!vect_resize(vec, vec->max VECT_RESIZE_OP))
 			return (VEC_EXIT_FAILURE);
 	vec->buff[vec->len++] = c;
 	vec->buff[vec->len] = '\0';
