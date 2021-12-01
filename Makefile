@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 13:10:12 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/01 14:13:21 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ NAME = vector_buffer.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror $(INCLUDES)
-INCLUDES = -I includes/
+INCLUDES = -I includes/ -I ../libft/includes/
 
+COMP_D = 0
 D = 0
 SANI = 0
 
@@ -35,7 +36,7 @@ endif
 SRC_DIR = src/
 OBJ_DIR = obj_$(basename $(NAME))/
 
-
+DEP_LIBFT = ../Libft/libft.a
 
 SRCS = $(shell find src -type f -name "*.c")
 
@@ -45,32 +46,34 @@ OBJS	= $(addprefix $(OBJ_DIR), $(OBJ))
 
 VPATH	= $(SRC_DIR) $(OBJ_DIR) $(shell find $(SRC_DIR) -type d)
 
-all: $(NAME)
-	@printf "\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
-	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
-	@printf "[Compiled /w this flag $(CFLAGS)]"
+all: $(DEP_LIBFT) $(NAME)
+
+$(DEP_LIBFT):
+	make -C ../Libft
 
 $(OBJ_DIR)%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\033[32;1m$@\033[32;0m\n"
+	@if [[ $(COMP_D) = "0" ]]; then printf "\033[32;1m.\033[32;0m"; else printf "\033[32;1m$@\033[32;0m\n"; fi
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 	@printf "\033[32;1m[Create $(OBJ_DIR)]\033[32;0m\n"
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	# Final command (exe or lib)
-	# @ar -rcs $(NAME) $(OBJS)
-	# @$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@printf "\033[32;1m[== Linked OK ==]\033[32;0m\n"
+	@ar -rcs $(NAME) $(OBJS) $(DEP_LIBFT)
+	@printf "\n\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
+	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
+	@printf "[Compiled /w this flag $(CFLAGS)]"
 
 clean:
+	make clean -C ../libft
 	@rm -rf $(OBJS)
 	@printf "\033[31;1m[Remove *.o]\033[32;0m\n"
 	@rm -rf $(OBJ_DIR)
 	@printf "\033[31;1m[Remove $(OBJ_DIR)]\033[32;0m\n"
 
 fclean: clean
+	make fclean -C ../libft
 	@rm -f $(NAME)
 	@printf "\033[31;1m[Remove $(NAME)]\033[32;0m\n"
 
