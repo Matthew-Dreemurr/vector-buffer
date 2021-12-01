@@ -1,0 +1,3 @@
+[submodule "vector-buffer"]
+	path = vector-buffer
+	url = git@github.com:Matthew-Dreemurr/vector-buffer
