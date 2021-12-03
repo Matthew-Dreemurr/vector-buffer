@@ -24,22 +24,18 @@ char	*vect_utoa_cat(unsigned int n, t_vector *vec)
 {
 	char	buff[12];
 	char	*ptr;
-	size_t	nbr;
 
-	nbr = (size_t []){n, -n}[n < 0];
 	ptr = buff;
-	if (nbr == 0)
+	if (n == 0)
 		*ptr++ = '0';
-	while (nbr > 0)
+	while (n > 0)
 	{
-		*ptr++ = (char)((nbr % 10) + '0');
-		nbr /= 10;
+		*ptr++ = (char)((n % 10) + '0');
+		n /= 10;
 	}
-	*ptr++ = (char []){'\0', '-'}[n < 0];
-	if (*ptr)
-		*ptr = '\0';
-	nbr = strlen_protect(buff);
-	rev_char_arr(buff, nbr);
+	*ptr = '\0';
+	n = strlen_protect(buff);
+	rev_char_arr(buff, n);
 	if (!vect_cat(vec, buff))
 		return (VEC_EXIT_FAILURE);
 	return (vec->buff);
