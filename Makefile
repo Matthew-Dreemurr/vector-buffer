@@ -53,14 +53,14 @@ all: $(NAME)
 
 only_obj: $(OBJ_DIR) $(OBJS)
 	@printf "\n[Compiled /w this flag $(CFLAGS)]\n"
-	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
+	@if [ $D = "1" ]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
 
 $(DEP_LIBFT):
 	@make only_obj -C ../libft
 
 $(OBJ_DIR)%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@if [[ $(COMP_D) = "0" ]]; then printf "\033[32;1m.\033[32;0m"; else printf "\033[32;1m$@\033[32;0m\n"; fi
+	@if [ $(COMP_D) = "0" ]; then printf "\033[32;1m.\033[32;0m"; else printf "\033[32;1m$@\033[32;0m\n"; fi
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -69,7 +69,7 @@ $(OBJ_DIR):
 $(NAME): $(OBJ_DIR) $(OBJS) $(DEP_LIBFT)
 	@ar -rcs $(NAME) $(OBJS) $(shell find $(DEP_LIBFT) -type f -name "*.o")
 	@printf "\n\033[32;1m[== $(NAME) Created ! ==]\033[32;0m\n"
-	@if [[ $D = "1" ]]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
+	@if [ $D = "1" ]; then printf "\033[31;1m[/!\\ DEBUG ENABLE /!\\]\033[32;0m\n"; fi
 	@printf "\n[Compiled /w this flag $(CFLAGS)]\n"
 
 clean:
@@ -103,7 +103,7 @@ r: re
 git:
 	@git pull
 	@git status --short
-	@while true; do read -p "Continue [y/N]" resp; if [[ $$resp =~ ^[Yy]$$ ]]; then exit 0; else exit 1; fi; done
+	# @while true; do read -p "Continue [y/N]" resp; if [ $$resp =~ ^[Yy]$$ ]; then exit 0; else exit 1; fi; done
 	@-git add .
 	@git commit -am "Makefile push `date +'%Y-%m-%d %H:%M:%S'`"
 	@-git push
