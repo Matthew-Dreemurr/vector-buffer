@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:52:54 by mahadad           #+#    #+#             */
-/*   Updated: 2021/12/06 18:00:31 by mahadad          ###   ########.fr       */
+/*   Updated: 2021/12/06 18:12:08 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "libft.h"
 # ifdef WRA
 #  include "wraloc.h"
-#  define VEC_BUFFER_SIZE 2
 # endif
 
 # define VEC_EXIT_FAILURE ((void *)0)
