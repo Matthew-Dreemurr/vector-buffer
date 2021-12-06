@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 14:15:46 by mahadad           #+#    #+#             */
-/*   Updated: 2021/12/01 16:28:47 by mahadad          ###   ########.fr       */
+/*   Updated: 2021/12/06 17:37:27 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef WRA
+# include "wraloc.h"
+#endif
+
 int	main(void)
 {
 	t_vector	test;
-	char 		buff[256];
+	char 		buff[1024];
 
 	buff[0] = '\0';
 	if (!vect_init(&test))

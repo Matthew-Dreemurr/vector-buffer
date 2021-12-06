@@ -6,7 +6,7 @@
 #    By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/13 11:30:03 by mahadad           #+#    #+#              #
-#    Updated: 2021/12/01 16:51:52 by mahadad          ###   ########.fr        #
+#    Updated: 2021/12/06 17:34:00 by mahadad          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,12 @@ INCLUDES = -I includes/ -I ../libft/includes/
 COMP_D = 0
 D = 0
 SANI = 0
+WRA = 0
+
+ifeq ($(WRA), 1)
+CFLAGS += -I includes/debug -D WRA
+D = 1
+endif
 
 ifeq ($(SANI), 1)
 CFLAGS += -fsanitize=address
