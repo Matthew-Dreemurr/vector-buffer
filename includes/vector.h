@@ -6,7 +6,7 @@
 /*   By: mahadad <mahadad@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:52:54 by mahadad           #+#    #+#             */
-/*   Updated: 2021/12/06 18:12:08 by mahadad          ###   ########.fr       */
+/*   Updated: 2022/03/10 16:31:40 by mahadad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ char		*vect_utoa_cat(unsigned int n, t_vector *vec);
 char		*vect_utohex_cat(unsigned int n, t_vector *vec, int upper);
 char		*vect_ultohex_cat(size_t n, t_vector *vec, int upper);
 int			putvectbuff_ret_int(t_vector *vect);
+char	*vect_write(t_vector *vec, char *str);
 
 #endif
